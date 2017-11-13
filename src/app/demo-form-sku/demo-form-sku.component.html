@@ -1,0 +1,59 @@
+<div class="ui red raised segment">
+	<h2 class="ui header">Demo Form: Sku</h2>
+	<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" class="ui form"
+	[class.error]="!myForm.valid && myForm.touched">
+
+		<div class="field" [class.error]="!myForm.controls['sku'].valid">
+			<label for="skuInput">SKU</label> 
+			<input type="text" id="skuInput"  [formControl]="myForm.get('sku')" placeholder="SKU" name="sku" />
+			<div *ngIf="!myForm.controls['sku'].valid" class="ui error message">SKU is invalid</div>
+       		<div *ngIf="myForm.controls['sku'].hasError('required')" class="ui error message">SKU is required</div>
+		</div>
+		<div class="two fields">
+			<div class="field">
+				<label for="skuName">Name</label> <input type="text" id="skuName" #name [formControl]="myForm.get('skuName')" placeholder="Name" name="skuName"  />
+			</div>
+			<div class="field">
+				<label for="value">Od:</label> <input type="text" id="value" placeholder="Od"
+					[formControl]="myForm.get('value')" CurrencyFormatter />
+			</div>
+		</div>
+		<div *ngIf="myForm.controls['value'].hasError('invalidValue')" class="ui error message">Invalid Vaue</div>	
+		<div *ngIf="!myForm.valid" class="ui error message">Form is invalid</div>
+		<button type="submit" class="ui button primary">Submit</button>
+	</form>
+	<div class="segment">{{value | Currency}}</div>
+</div>
+
+<p>Simple datepicker</p>
+
+<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+
+<hr/>
+
+<button class="btn btn-sm btn-outline-primary" (click)="selectToday()">Select Today</button>
+<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo()">To current month</button>
+<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>
+<hr/>
+<pre>Month: {{ date.month }}.{{ date.year }}</pre>
+<pre>Model: {{ model | json }}</pre>
+<div class="field">
+        <label>Constrained Date</label>
+        <div class="ui left icon input">
+            <i class="calendar icon"></i>
+            <input suiDatepicker #cal
+            [pickerMode]="'date'"
+                      
+            [pickerUseNativeOnMobile]="false">
+        </div>
+    </div>
+
+<div class="ui segment raised">
+<h2 class="ui center aligned icon header blue">
+  <i class="circular users icon"></i>
+  Tým Cleverbee
+</h2>
+<div class="label bold">jméno:</div>&nbsp;<i class="mail icon"></i><span>{{name.value}}</span>
+<div class="label bold">datum:</div>&nbsp;<i class="calendar icon"></i><span>{{cal.value}}</span>
+<div class="label bold">datum:</div>&nbsp;<i class="calendar icon"></i><span>{{mDate}}</span>
+</div>
